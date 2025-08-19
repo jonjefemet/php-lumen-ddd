@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  # Auth Service
+  auth:
+    build:
+      context: .
+      dockerfile: Docker/Prod/Dockerfile
+    ports:
+      - "8001:80"
+    environment:
+      - APP_ENV=production
+      - APP_DEBUG=false
+      - AUTH_DATABASE_HOST=mongo
+      - AUTH_DATABASE_NAME=finger_auth
+      - MONGODB_URI=mongodb://mongo:27017
+    depends_on:
+      - mongo
+    networks:
+      - microservices
+    restart: unless-stopped
+    deploy:
+      replicas: 2
+
+  # Backoffice Service
+  backoffice:
+    build:
+      context: .
+      dockerfile: Docker/Prod/Dockerfile
+    ports:
+      - "8002:80"
+    environment:
+      - APP_ENV=production
+      - APP_DEBUG=false
+      - BACKOFFICE_DATABASE_HOST=mongo
+      - BACKOFFICE_DATABASE_NAME=finger_backoffice
+      - MONGODB_URI=mongodb://mongo:27017
+    depends_on:
+      - mongo
+    networks:
+      - microservices
+    restart: unless-stopped
+    deploy:
+      replicas: 2
+
+  # MongoDB Database
+  mongo:
+    image: mongo:6.0
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASSWORD:-secret}
+      - MONGO_INITDB_DATABASE=finger_auth
+    volumes:
+      - mongodb_data:/data/db
+      - ./etc/databases/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    networks:
+      - microservices
+    restart: unless-stopped
+
+networks:
+  microservices:
+    driver: bridge
+
+volumes:
+  mongodb_data:

@@ -1,0 +1,64 @@
+services:
+  # Auth Service
+  auth:
+    build:
+      context: .
+      dockerfile: Docker/Dev/Dockerfile
+    volumes:
+      - ./:/srv/app
+    working_dir: /srv/app
+    command: bash -c "composer install --ignore-platform-req=ext-mongodb && php -S 0.0.0.0:80 -t apps/auth/backend/public apps/auth/backend/public/index.php"
+    ports:
+      - "8001:80"
+    environment:
+      - APP_ENV=dev
+      - AUTH_DATABASE_HOST=mongo
+      - AUTH_DATABASE_NAME=finger_auth
+      - MONGODB_URI=mongodb://admin:secret@mongo:27017
+    depends_on:
+      - mongo
+    networks:
+      - microservices
+
+  # Backoffice Service
+  backoffice:
+    build:
+      context: .
+      dockerfile: Docker/Dev/Dockerfile
+    volumes:
+      - ./:/srv/app
+    working_dir: /srv/app
+    command: bash -c "composer install --ignore-platform-req=ext-mongodb && php -S 0.0.0.0:80 -t apps/backoffice/backend/public apps/backoffice/backend/public/index.php"
+    ports:
+      - "8002:80"
+    environment:
+      - APP_ENV=dev
+      - BACKOFFICE_DATABASE_HOST=mongo
+      - BACKOFFICE_DATABASE_NAME=finger_backoffice
+      - MONGODB_URI=mongodb://admin:secret@mongo:27017
+    depends_on:
+      - mongo
+    networks:
+      - microservices
+
+  # MongoDB Database
+  mongo:
+    image: mongo:6.0
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=secret
+      - MONGO_INITDB_DATABASE=finger_auth
+    volumes:
+      - mongodb_data:/data/db
+      - ./etc/databases/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    networks:
+      - microservices
+
+networks:
+  microservices:
+    driver: bridge
+
+volumes:
+  mongodb_data:

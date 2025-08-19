@@ -1,0 +1,19 @@
+default:
+    suites:
+        auth_backend:
+            paths:
+                - '%paths.base%/apps/auth/backend/tests/features'
+            contexts:
+                - Finger\Tests\Shared\Infrastructure\Behat\ApplicationFeatureContext:
+                    kernelClass: Finger\Apps\Auth\Backend\AuthBackendKernel
+        backoffice_backend:
+            paths:
+                - '%paths.base%/apps/backoffice/backend/tests/features'
+            contexts:
+                - Finger\Tests\Shared\Infrastructure\Behat\ApplicationFeatureContext:
+                    kernelClass: Finger\Apps\Backoffice\Backend\BackofficeBackendKernel
+
+    extensions:
+        FriendsOfBehat\SymfonyExtension:
+            kernel:
+                class: Finger\Apps\Auth\Backend\AuthBackendKernel
