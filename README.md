@@ -12,7 +12,7 @@
 
 <br><br>
 
-<img src="assets/home.png" alt="Architecture Overview" width="800">
+<img src="assets/home.png" alt="Architecture Overview" width="560">
 
 </div>
 
