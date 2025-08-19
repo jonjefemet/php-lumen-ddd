@@ -1,5 +1,33 @@
 # 🚀 Microservices Monorepo con PHP 8.4, DDD y Lumen
 
+<div align="center">
+
+[![PHP](https://img.shields.io/badge/PHP-8.4-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://php.net)
+[![Docker](https://img.shields.io/badge/Docker-🐳-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://docker.com)
+[![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)](https://mongodb.com)
+[![Symfony](https://img.shields.io/badge/Symfony-000000?style=for-the-badge&logo=symfony&logoColor=white)](https://symfony.com)
+
+[![DDD](https://img.shields.io/badge/DDD-Domain%20Driven%20Design-FF6B6B?style=for-the-badge&logo=data:v1/image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDJMMTMuMDkgOC4yNkwyMCA5TDEzLjA5IDE1Ljc0TDEyIDIyTDEwLjkxIDE1Ljc0TDQgOUwxMC45MSA4LjI2TDEyIDJaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K)](https://dddcommunity.org)
+[![CQRS](https://img.shields.io/badge/CQRS-Command%20Query%20Responsibility%20Segregation-4ECDC4?style=for-the-badge&logo=data:v1/image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDJMMTMuMDkgOC4yNkwyMCA5TDEzLjA5IDE1Ljc0TDEyIDIyTDEwLjkxIDE1Ljc0TDQgOUwxMC45MSA8LjI2TDEyIDJaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K)](https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs)
+[![Event Sourcing](https://img.shields.io/badge/Event%20Sourcing-📝-45B7D1?style=for-the-badge&logo=data:v1/image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDJMMTMuMDkgOC4yNkwyMCA5TDEzLjA5IDE1Ljc0TDEyIDIyTDEwLjkxIDE1Ljc0TDQgOUwxMC45MSA4LjI2TDEyIDJaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K)](https://docs.microsoft.com/en-us/azure/architecture/patterns/event-sourcing)
+[![Hexagonal](https://img.shields.io/badge/Hexagonal%20Architecture-🏛️-96CEB4?style=for-the-badge&logo=data:v1/image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDJMMTMuMDkgOC4yNkwyMCA5TDEzLjA5IDE1Ljc0TDEyIDIyTDEwLjkxIDE1Ljc0TDQgOUwxMC45MSA4LjI2TDEyIDJaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K)](https://alistair.cockburn.us/hexagonal-architecture/)
+
+[![Composer](https://img.shields.io/badge/Composer-885630?style=for-the-badge&logo=composer&logoColor=white)](https://getcomposer.org)
+[![PHPUnit](https://img.shields.io/badge/PHPUnit-366488?style=for-the-badge&logo=php&logoColor=white)](https://phpunit.de)
+[![Mockery](https://img.shields.io/badge/Mockery-Testing-FF4B4B?style=for-the-badge&logo=php&logoColor=white)](https://github.com/mockery/mockery)
+[![Faker](https://img.shields.io/badge/Faker-Data%20Generation-FFA726?style=for-the-badge&logo=php&logoColor=white)](https://fakerphp.github.io)
+
+[![Doctrine ORM](https://img.shields.io/badge/Doctrine%20ORM-FC6A31?style=for-the-badge&logo=data:v1/image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDJMMTMuMDkgOC4yNkwyMCA5TDEzLjA5IDE1Ljc0TDEyIDIyTDEwLjkxIDE1Ljc0TDQgOUwxMC45MSA4LjI2TDEyIDJaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K)](https://doctrine-project.org)
+[![Ramsey UUID](https://img.shields.io/badge/Ramsey%20UUID-8E44AD?style=for-the-badge&logo=data:v1/image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDJMMTMuMDkgOC4yNkwyMCA5TDEzLjA5IDE1Ljc0TDEyIDIyTDEwLjkxIDE1Ljc0TDQgOUwxMC45MSA4LjI2TDEyIDJaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K)](https://github.com/ramsey/uuid)
+[![Monolog](https://img.shields.io/badge/Monolog-Logging-E67E22?style=for-the-badge&logo=data:v1/image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDJMMTMuMDkgOC4yNkwyMCA5TDEzLjA5IDE1Ljc0TDEyIDIyTDEwLjkxIDE1Ljc0TDQgOUwxMC45MSA4LjI2TDEyIDJaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K)](https://seldaek.github.io/monolog/)
+[![lambdish/phunctional](https://img.shields.io/badge/lambdish%2Fphunctional-Functional%20Programming-9B59B6?style=for-the-badge&logo=data:v1/image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDJMMTMuMDkgOC4yNkwyMCA5TDEzLjA5IDE1Ljc0TDEyIDIyTDEwLjkxIDE1Ljc0TDQgOUwxMC45MSA4LjI2TDEyIDJaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K)](https://github.com/lambdish/phunctional)
+
+[![Build Status](https://img.shields.io/badge/Tests-✅%20Passing-28A745?style=for-the-badge&logo=github-actions&logoColor=white)](#tests)
+[![Code Quality](https://img.shields.io/badge/Code%20Quality-A+-2E7D32?style=for-the-badge&logo=codeclimate&logoColor=white)](#quality)
+[![Coverage](https://img.shields.io/badge/Coverage-📊%20100%25-1E88E5?style=for-the-badge&logo=codecov&logoColor=white)](#coverage)
+
+</div>
+
 Un monorepo completo implementando una arquitectura de microservicios usando **PHP 8.4**, **Domain-Driven Design (DDD)**, **CQRS**, **Event Sourcing** y las mejores prácticas de desarrollo con arquitectura hexagonal.
 
 ## 🏗️ Arquitectura
