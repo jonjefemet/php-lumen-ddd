@@ -1,5 +1,3 @@
-# 🚀 Microservices Monorepo
-
 <div align="center">
 
 [![PHP](https://img.shields.io/badge/PHP-8.4-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://php.net)
@@ -11,6 +9,10 @@
 [![Composer](https://img.shields.io/badge/Composer-885630?style=for-the-badge&logo=composer&logoColor=white)](https://getcomposer.org)
 [![PHPUnit](https://img.shields.io/badge/PHPUnit-366488?style=for-the-badge&logo=php&logoColor=white)](https://phpunit.de)
 [![Doctrine ORM](https://img.shields.io/badge/Doctrine%20ORM-FC6A31?style=for-the-badge&logo=doctrine&logoColor=white)](https://doctrine-project.org)
+
+<br><br>
+
+<img src="assets/home.png" alt="Architecture Overview" width="800">
 
 </div>
 
