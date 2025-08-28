@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Finger\Apps\Auth\Backend;
 
 use Finger\Apps\Auth\Backend\Controller\Auth\LoginPostController;
+use Finger\Apps\Auth\Backend\Controller\Auth\RefreshTokenPostController;
 use Finger\Apps\Auth\Backend\Controller\Auth\RegisterPostController;
 use Finger\Apps\Auth\Backend\Controller\HealthCheck\HealthCheckGetController;
 use Finger\Apps\Auth\Backend\DependencyInjection\AuthServiceProvider;
@@ -44,6 +45,7 @@ final class AuthBackendKernel
         $controllers = [
             HealthCheckGetController::class,
             LoginPostController::class,
+            RefreshTokenPostController::class,
             RegisterPostController::class,
         ];
         

@@ -11,6 +11,7 @@ use Symfony\Component\Messenger\Exception\NoHandlerForMessageException;
 use Symfony\Component\Messenger\Handler\HandlersLocator;
 use Symfony\Component\Messenger\MessageBus;
 use Symfony\Component\Messenger\Middleware\HandleMessageMiddleware;
+use Symfony\Component\Messenger\Stamp\HandledStamp;
 
 final class SymfonyCommandBus implements CommandBus
 {
@@ -43,10 +44,21 @@ final class SymfonyCommandBus implements CommandBus
         ]);
     }
 
-    public function dispatch(Command $command): void
+    public function dispatch(Command $command): mixed
     {
         try {
-            $this->bus->dispatch($command);
+            $envelope = $this->bus->dispatch($command);
+            
+            // If there's a HandledStamp, get the result from it
+            $handledStamps = $envelope->all(HandledStamp::class);
+            
+            if (!empty($handledStamps)) {
+                /** @var HandledStamp $handledStamp */
+                $handledStamp = end($handledStamps);
+                return $handledStamp->getResult();
+            }
+            
+            return null;
         } catch (NoHandlerForMessageException) {
             throw new CommandNotRegisteredError($command);
         } catch (HandlerFailedException $error) {

@@ -13,18 +13,18 @@ use Finger\Shared\Domain\Utils;
 
 abstract class ApiController
 {
-    private ?CommandBus $commandBus = null;
-    private ?QueryBus $queryBus = null;
+    private ?CommandBus $commandBus;
+    private ?QueryBus $queryBus;
 
-    public function __construct(CommandBus $commandBus = null, QueryBus $queryBus = null)
+    public function __construct(?CommandBus $commandBus = null, ?QueryBus $queryBus = null)
     {
         $this->commandBus = $commandBus;
         $this->queryBus = $queryBus;
     }
 
-    protected function dispatch(Command $command): void
+    protected function dispatch(Command $command): mixed
     {
-        $this->commandBus?->dispatch($command);
+        return $this->commandBus?->dispatch($command);
     }
 
     protected function ask(Query $query): ?Response

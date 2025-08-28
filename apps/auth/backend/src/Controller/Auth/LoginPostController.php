@@ -15,10 +15,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class LoginPostController extends ApiController
 {
-    public function __construct(private CommandBus $commandBus)
-    {
-        parent::__construct($commandBus, null);
-    }
 
     public function __invoke(Request $request): JsonResponse
     {
@@ -29,11 +25,11 @@ final class LoginPostController extends ApiController
             $requestData['password'] ?? ''
         );
 
-        $this->dispatch($command);
+        $tokens = $this->dispatch($command);
 
         return new JsonResponse([
             'message' => 'Authentication successful',
-            'token' => 'jwt_token_placeholder'
+            'data' => $tokens
         ]);
     }
 }

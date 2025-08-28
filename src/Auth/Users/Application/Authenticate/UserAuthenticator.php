@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Finger\Auth\Users\Application\Authenticate;
 
+use Finger\Auth\Shared\Infrastructure\Jwt\JwtTokenManager;
 use Finger\Auth\Users\Domain\InvalidCredentials;
 use Finger\Auth\Users\Domain\UserEmail;
 use Finger\Auth\Users\Domain\UserRepository;
@@ -11,13 +12,15 @@ use Finger\Auth\Users\Domain\UserRepository;
 final class UserAuthenticator
 {
     private UserRepository $repository;
+    private JwtTokenManager $tokenManager;
 
-    public function __construct(UserRepository $repository)
+    public function __construct(UserRepository $repository, JwtTokenManager $tokenManager)
     {
         $this->repository = $repository;
+        $this->tokenManager = $tokenManager;
     }
 
-    public function __invoke(string $email, string $password): void
+    public function __invoke(string $email, string $password): array
     {
         $user = $this->repository->searchByEmail(new UserEmail($email));
 
@@ -29,7 +32,7 @@ final class UserAuthenticator
             throw new InvalidCredentials();
         }
 
-        // Aquí se podría generar un JWT token
-        // Para simplificar, solo validamos las credenciales
+        // Generate JWT tokens
+        return $this->tokenManager->generateTokenPair($user);
     }
 }

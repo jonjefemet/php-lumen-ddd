@@ -15,9 +15,9 @@ final class AuthenticateUserCommandHandler implements CommandHandler
         $this->authenticator = $authenticator;
     }
 
-    public function __invoke(AuthenticateUserCommand $command): void
+    public function __invoke(AuthenticateUserCommand $command): array
     {
-        $this->authenticator->__invoke(
+        return $this->authenticator->__invoke(
             $command->email(),
             $command->password()
         );
