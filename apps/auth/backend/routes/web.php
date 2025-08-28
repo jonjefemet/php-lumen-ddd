@@ -15,12 +15,50 @@ declare(strict_types=1);
 
 /** @var \Laravel\Lumen\Routing\Router $router */
 
-// Health check
-$router->get('/health', 'HealthController@check');
+/*
+|--------------------------------------------------------------------------
+| API Version 1 Routes
+|--------------------------------------------------------------------------
+|
+| All V1 routes are grouped under /api/v1 prefix for proper versioning.
+| Legacy routes without version prefix redirect to v1 for compatibility.
+|
+*/
 
-// Auth routes
-$router->group(['prefix' => 'api/auth'], function () use ($router) {
-    $router->post('/login', 'AuthController@login');
-    $router->post('/register', 'AuthController@register');
-    $router->post('/refresh', 'AuthController@refresh');
+// V1 API Routes
+$router->group(['prefix' => 'api/v1'], function () use ($router) {
+    
+    // System routes
+    $router->group(['namespace' => 'V1\System'], function () use ($router) {
+        $router->get('/health', 'HealthController');
+    });
+    
+    // Auth routes
+    $router->group(['prefix' => 'auth', 'namespace' => 'V1\Auth'], function () use ($router) {
+        $router->post('/login', 'LoginController');
+        $router->post('/register', 'RegisterController');
+        $router->post('/refresh', 'RefreshTokenController');
+    });
+});
+
+/*
+|--------------------------------------------------------------------------
+| Legacy Routes (Backward Compatibility)
+|--------------------------------------------------------------------------
+|
+| These routes maintain backward compatibility while redirecting to v1.
+| Consider deprecating these in future versions.
+|
+*/
+
+// Legacy system routes (no version) -> redirect to v1
+$router->group(['namespace' => 'V1\System'], function () use ($router) {
+    $router->get('/health', 'HealthController');
+});
+
+// Legacy auth routes -> redirect to v1
+$router->group(['prefix' => 'api/auth', 'namespace' => 'V1\Auth'], function () use ($router) {
+    $router->post('/login', 'LoginController');
+    $router->post('/register', 'RegisterController');
+    $router->post('/refresh', 'RefreshTokenController');
 });
