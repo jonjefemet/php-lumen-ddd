@@ -1,6 +1,6 @@
-# JWT Implementation Guide
+# JWT Implementation Guide - Monorepo Structure
 
-Esta implementación simple de JWT para autenticación incluye generación de tokens y refresh tokens usando la librería `firebase/php-jwt`.
+Esta implementación de JWT para autenticación está integrada con **Lumen** y mantiene la estructura del **monorepo**. Incluye generación de tokens y refresh tokens usando la librería `firebase/php-jwt`.
 
 ## Características Implementadas
 
@@ -119,17 +119,45 @@ if ($response !== null) {
 $user = $request->attributes->get('authenticated_user');
 ```
 
-## Estructura de Archivos Creados
+## Estructura del Monorepo
 
+### Core JWT Domain (Compartido)
 ```
 src/Auth/Shared/Infrastructure/Jwt/
 ├── JwtTokenService.php      # Servicio básico de JWT
 ├── JwtTokenManager.php      # Manager de operaciones JWT
 └── Middleware/
     └── JwtAuthMiddleware.php # Middleware de autenticación
+```
 
-apps/auth/backend/src/Controller/Auth/
-└── RefreshTokenPostController.php # Controlador para refresh
+### Auth Backend (Lumen App)
+```
+apps/auth/backend/
+├── app/                     # Namespace: Finger\Apps\Auth\Backend
+│   ├── Http/Controllers/
+│   │   ├── AuthController.php    # Login, Register, Refresh
+│   │   └── HealthController.php  # Health Check
+│   └── Providers/
+│       └── AuthServiceProvider.php # Service Container
+├── bootstrap/
+│   └── app.php              # Lumen Bootstrap
+├── config/
+│   └── app.php              # App Configuration
+├── routes/
+│   └── web.php              # Route Definitions
+└── public/
+    └── index.php            # Entry Point
+```
+
+### Composer Autoload Configuration
+```json
+"autoload": {
+    "psr-4": {
+        "Finger\\": "src/",
+        "Finger\\Apps\\Backoffice\\Backend\\": "apps/backoffice/backend/src/",
+        "Finger\\Apps\\Auth\\Backend\\": "apps/auth/backend/app/"
+    }
+}
 ```
 
 ## Flujo de Autenticación
@@ -146,4 +174,47 @@ apps/auth/backend/src/Controller/Auth/
 - Contienen identificador de usuario y tipo de token
 - Los refresh tokens solo sirven para renovar tokens
 
-¡La implementación está lista para usar! 🚀
+## Integración con Lumen
+
+### Service Container Nativo
+- **Service Provider**: `Finger\Apps\Auth\Backend\Providers\AuthServiceProvider`
+- **Inyección de Dependencias**: Automática via constructor
+- **Singleton Services**: JWT services registrados como singletons
+
+### Routing Nativo de Lumen
+- **Rutas**: Definidas en `routes/web.php`
+- **Controladores**: Extienden `Laravel\Lumen\Routing\Controller`
+- **Validación**: Usando `$this->validate()` nativo de Lumen
+
+### Ventajas del Monorepo + Lumen
+
+1. **🏗️ Separación de Responsabilidades**:
+   - **Core Domain** (`src/`): Lógica de negocio compartida
+   - **Auth App** (`apps/auth/backend/`): Interfaz HTTP específica
+
+2. **🔄 Reutilización**:
+   - Los services JWT pueden usarse en otros módulos del monorepo
+   - Domain layer independiente del framework
+
+3. **🚀 Escalabilidad**:
+   - Cada app puede usar diferentes frameworks (Lumen, Laravel, etc.)
+   - Service container compartido o independiente según necesidades
+
+4. **🧪 Testing**:
+   - Domain tests independientes del framework
+   - Integration tests específicos para cada app
+
+### Comandos Útiles
+
+```bash
+# Regenerar autoloader del monorepo
+docker-compose exec auth composer dump-autoload
+
+# Logs de la aplicación
+docker-compose logs auth
+
+# Acceso al contenedor
+docker-compose exec auth bash
+```
+
+¡La implementación está lista para usar en producción! 🚀

@@ -10,14 +10,17 @@ use MongoDB\Database;
 final class MongoClientFactory
 {
     public static function createDatabase(
-        string $uri = 'mongodb://mongo:27017',
+        string $uri = 'mongodb://admin:secret@mongo:27017',
         string $databaseName = 'finger_auth'
     ): Database {
-        $client = new Client($uri, [
-            'username' => 'admin',
-            'password' => 'secret',
+        // Use environment variables with fallbacks
+        $actualUri = $_ENV['MONGODB_URI'] ?? $uri;
+        $actualDatabase = $_ENV['MONGODB_DATABASE'] ?? $databaseName;
+
+        $client = new Client($actualUri, [
             'authSource' => 'admin'
         ]);
-        return $client->selectDatabase($databaseName);
+        
+        return $client->selectDatabase($actualDatabase);
     }
 }

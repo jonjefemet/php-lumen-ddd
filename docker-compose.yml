@@ -12,9 +12,9 @@ services:
       - "8001:80"
     environment:
       - APP_ENV=dev
-      - AUTH_DATABASE_HOST=mongo
-      - AUTH_DATABASE_NAME=finger_auth
       - MONGODB_URI=mongodb://admin:secret@mongo:27017
+      - MONGODB_DATABASE=finger_auth
+      - JWT_SECRET=your-jwt-secret-key-here
     depends_on:
       - mongo
     networks:
@@ -33,9 +33,8 @@ services:
       - "8002:80"
     environment:
       - APP_ENV=dev
-      - BACKOFFICE_DATABASE_HOST=mongo
-      - BACKOFFICE_DATABASE_NAME=finger_backoffice
       - MONGODB_URI=mongodb://admin:secret@mongo:27017
+      - MONGODB_DATABASE=finger_backoffice
     depends_on:
       - mongo
     networks:

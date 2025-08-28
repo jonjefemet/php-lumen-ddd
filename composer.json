@@ -26,8 +26,8 @@
     "autoload": {
         "psr-4": {
             "Finger\\": "src/",
-            "Finger\\Apps\\Auth\\Backend\\": "apps/auth/backend/src/",
-            "Finger\\Apps\\Backoffice\\Backend\\": "apps/backoffice/backend/src/"
+            "Finger\\Apps\\Backoffice\\Backend\\": "apps/backoffice/backend/src/",
+            "Finger\\Apps\\Auth\\Backend\\": "apps/auth/backend/app/"
         }
     },
     "autoload-dev": {
