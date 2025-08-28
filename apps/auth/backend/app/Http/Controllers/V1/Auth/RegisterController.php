@@ -9,6 +9,7 @@ use Finger\Shared\Domain\Bus\Command\CommandBus;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Laravel\Lumen\Routing\Controller;
+use OpenApi\Attributes as OA;
 use Ramsey\Uuid\Uuid;
 
 final class RegisterController extends Controller
@@ -17,6 +18,25 @@ final class RegisterController extends Controller
         private CommandBus $commandBus
     ) {}
 
+    #[OA\Post(
+        path: '/auth/register',
+        summary: 'User Registration - Create new account',
+        tags: ['Authentication']
+    )]
+    #[OA\RequestBody(
+        required: true,
+        description: 'User registration data',
+        content: new OA\JsonContent(
+            required: ['email', 'password', 'name'],
+            properties: [
+                new OA\Property(property: 'email', type: 'string', format: 'email', example: 'newuser@example.com'),
+                new OA\Property(property: 'password', type: 'string', minLength: 8, example: 'MySecurePassword123'),
+                new OA\Property(property: 'name', type: 'string', maxLength: 255, example: 'John Doe')
+            ]
+        )
+    )]
+    #[OA\Response(response: 201, description: 'User registered successfully')]
+    #[OA\Response(response: 422, description: 'Validation error')]
     public function __invoke(Request $request): JsonResponse
     {
         $this->validate($request, [

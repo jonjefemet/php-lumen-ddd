@@ -31,6 +31,9 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
     // System routes
     $router->group(['namespace' => 'V1\System'], function () use ($router) {
         $router->get('/health', 'HealthController');
+        
+        // Documentation endpoint - uses PHP Attributes automatically
+        $router->get('/docs/json', 'DocsController@json');
     });
     
     // Auth routes
@@ -54,6 +57,9 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
 // Legacy system routes (no version) -> redirect to v1
 $router->group(['namespace' => 'V1\System'], function () use ($router) {
     $router->get('/health', 'HealthController');
+    
+    // Legacy documentation endpoint
+    $router->get('/docs/json', 'DocsController@json');
 });
 
 // Legacy auth routes -> redirect to v1

@@ -6,9 +6,16 @@ namespace Finger\Apps\Auth\Backend\Http\Controllers\V1\System;
 
 use Illuminate\Http\JsonResponse;
 use Laravel\Lumen\Routing\Controller;
+use OpenApi\Attributes as OA;
 
 final class HealthController extends Controller
 {
+    #[OA\Get(
+        path: '/health',
+        summary: 'Health Check - Service status and uptime',
+        tags: ['System']
+    )]
+    #[OA\Response(response: 200, description: 'Service is healthy')]
     public function __invoke(): JsonResponse
     {
         return response()->json([

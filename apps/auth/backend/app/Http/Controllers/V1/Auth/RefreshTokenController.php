@@ -8,6 +8,7 @@ use Finger\Auth\Shared\Infrastructure\Jwt\JwtTokenManager;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Laravel\Lumen\Routing\Controller;
+use OpenApi\Attributes as OA;
 
 final class RefreshTokenController extends Controller
 {
@@ -15,6 +16,23 @@ final class RefreshTokenController extends Controller
         private JwtTokenManager $tokenManager
     ) {}
 
+    #[OA\Post(
+        path: '/auth/refresh',
+        summary: 'JWT Token Refresh - Get new access token',
+        tags: ['Authentication']
+    )]
+    #[OA\RequestBody(
+        required: true,
+        description: 'Refresh token data',
+        content: new OA\JsonContent(
+            required: ['refresh_token'],
+            properties: [
+                new OA\Property(property: 'refresh_token', type: 'string', example: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...')
+            ]
+        )
+    )]
+    #[OA\Response(response: 200, description: 'Token refresh successful')]
+    #[OA\Response(response: 401, description: 'Invalid refresh token')]
     public function __invoke(Request $request): JsonResponse
     {
         $this->validate($request, [
